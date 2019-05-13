@@ -1,0 +1,35 @@
+##### Question 1 #####
+
+SELECT
+	MAX(maxtemperaturef) AS max_temp,
+	zip
+FROM
+	weather
+GROUP BY zip;
+
+##### Question 2 #####
+
+SELECT
+	COUNT(start_station) as station_count,
+	start_station
+FROM
+	trips
+GROUP BY start_station
+ORDER BY station_count DESC;
+
+##### Question 3 #####
+
+SELECT
+	MIN(duration) AS duration
+FROM
+	trips;
+
+##### Question 4 #####
+
+SELECT
+	AVG(duration) AS end_duration,
+	end_station
+FROM
+	trips
+GROUP BY end_station
+ORDER BY end_duration DESC;
