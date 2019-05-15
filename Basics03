@@ -66,4 +66,33 @@ ORDER BY dockcount DESC
 ##### Question 4 #####
 # (Challenge) What's the length of the longest trip for each day it rains anywhere?
 
+WITH
+	days_rained
+AS (
+	SELECT
+		DATE(date) dd,
+		events
+	FROM
+		weather
+	WHERE
+		events = 'Rain'
+),
 
+	long_trips
+AS (
+	SELECT
+		DATE(start_date) date_of_trip,
+		MAX(duration) max_dur
+	FROM
+		trips
+	GROUP BY
+		date_of_trip
+)
+
+SELECT
+	date_of_trip,
+	max_dur
+FROM
+	long_trips
+WHERE
+	date_of_trip IN (SELECT dd FROM days_rained)
