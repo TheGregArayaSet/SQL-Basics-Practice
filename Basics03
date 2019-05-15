@@ -1,0 +1,69 @@
+##### Question 1 #####
+# What are the three longest trips on rainy days?
+
+SELECT
+	duration
+FROM
+	trips
+ORDER BY
+	duration DESC
+LIMIT 3
+
+
+##### Question 2 #####
+# Which station is full most often?
+
+WITH
+	filled
+AS (
+	SELECT
+		station_id,
+		COUNT(docks_available)
+	FROM
+		status
+	WHERE
+		docks_available = 0
+	GROUP BY
+		station_id
+)
+
+SELECT
+	station_id
+FROM
+	filled
+ORDER BY count DESC
+LIMIT 1
+
+
+##### Question 3 #####
+# Return a list of stations with a count of number of trips starting at that station but ordered by dock count.
+
+WITH
+	num_trips
+AS (
+	SELECT
+		start_station,
+		COUNT(start_station)
+	FROM
+		trips
+	GROUP BY
+		start_station
+)
+
+SELECT
+	s.name,
+	s.dockcount
+FROM
+	stations s
+
+JOIN
+	num_trips
+ON
+	s.name = num_trips.start_station
+ORDER BY dockcount DESC
+
+
+##### Question 4 #####
+# (Challenge) What's the length of the longest trip for each day it rains anywhere?
+
+
