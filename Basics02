@@ -1,4 +1,5 @@
 ##### Question 1 #####
+# What was the hottest day in our data set? Where was that?
 
 SELECT
 	MAX(maxtemperaturef) AS max_temp,
@@ -8,6 +9,7 @@ FROM
 GROUP BY zip;
 
 ##### Question 2 #####
+# How many trips started at each station?
 
 SELECT
 	COUNT(start_station) as station_count,
@@ -18,6 +20,7 @@ GROUP BY start_station
 ORDER BY station_count DESC;
 
 ##### Question 3 #####
+# What's the shortest trip that happened?
 
 SELECT
 	MIN(duration) AS duration
@@ -25,6 +28,7 @@ FROM
 	trips;
 
 ##### Question 4 #####
+# What is the average trip duration, by end station?
 
 SELECT
 	AVG(duration) AS end_duration,
