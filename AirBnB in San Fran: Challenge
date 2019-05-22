@@ -16,6 +16,7 @@ ORDER BY
 LIMIT 1
 
 
+
 ##### QUESTION 2 #####
 What neighborhoods seem to be the most popular?
 
@@ -39,7 +40,42 @@ ORDER BY
 	num_found DESC
 LIMIT 5
 
+
+
 ##### QUESTION 3 #####
 What time of year is the cheapest time to go to San Francisco? What about the busiest?
 
+-----Answer:
+The 3 cheapest months:
+1. September
+2. June
+3. April
 
+The 3 most expensive months:
+1. November
+2. December
+3. January
+
+-----Code:
+
+WITH
+	mly_prices
+AS (
+	SELECT
+		DATE_PART('month', calender_date) mth,
+		CAST(price AS MONEY)
+	FROM
+		sfo_calendar
+	WHERE
+		price IS NOT NULL
+)
+
+SELECT
+	mth,
+	SUM(price) pper
+FROM
+	mly_prices
+GROUP BY
+	mth
+ORDER BY
+	pper DESC
